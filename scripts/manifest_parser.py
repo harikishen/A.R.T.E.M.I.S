@@ -2,11 +2,25 @@ from bs4 import BeautifulSoup
 import sys
 
 path=sys.argv[1]
-
+pathlist = path.split("/")
+index =pathlist.pop()
+print(" list ::: ",pathlist)
+pathlist = "/".join(pathlist)
 infile = open(path+"/manifest.txt","r")
-file=open(path+"/permissions.txt","a")
+file=open(pathlist+"/lists/"+str(index)+".txt","a")
+print(path)
 contents = infile.read()
 soup = BeautifulSoup(contents,'xml')
 titles = soup.find_all('uses-permission')
 for title in titles:
-    file.write(title.get('android:name').split('.')[-1]+"\n")
+    androidName = title.get('android:name');
+    if androidName:
+        file.write(androidName.split('.')[-1]+"\n")
+    else:
+        tagContent=title.string
+        tagContent=tagContent.replace('\n','')
+        tagContent=tagContent.replace('\t','')
+        tagContent=tagContent.replace('>','')
+        tagContent=tagContent.replace('=','')
+        tagContent=tagContent.replace('"','')
+        file.write(tagContent.split('.')[-1]+"\n")

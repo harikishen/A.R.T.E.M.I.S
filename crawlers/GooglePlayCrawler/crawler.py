@@ -1,10 +1,12 @@
-import os
-import sys
-import threading
 import Queue
 import logging
-from googleplay import GooglePlayAPI
+import sys
+import threading
+
+import os
+
 from config import *
+from googleplay import GooglePlayAPI
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
@@ -12,6 +14,7 @@ download_queue = Queue.Queue()
 
 
 class DownloaderThread(threading.Thread):
+
     def __init__(self):
         threading.Thread.__init__(self)
         self.api = GooglePlayAPI(ANDROID_ID)

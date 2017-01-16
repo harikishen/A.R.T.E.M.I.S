@@ -5,7 +5,7 @@ import logging
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
-path="/home/deon/apk/apks/"
+path="/home/deon/apk/"
 filenames=glob.glob(path+"*.apk")
 path2="/home/deon/Android-Malware-Detector"
 

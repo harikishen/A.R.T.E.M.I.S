@@ -3,15 +3,15 @@ import glob
 import os
 from config import *
 
-appfolder="/home/deon/apk/apks/hike/"
-os.chdir(appfolder)
-os.system("sh %sd2j-baksmali.sh %sclasses.dex" %(DEX2SMALI_PATH,appfolder))
+api=[]
+os.chdir(APP_FOLDER)
+os.system("sh %sd2j-baksmali.sh %sclasses.dex" %(DEX2SMALI_PATH,APP_FOLDER))
 
-for root, dirs, files in os.walk(appfolder+"classes-out/"):
+for root, dirs, files in os.walk(APP_FOLDER+"classes-out/"):
 	for filename in files:
 		if filename.endswith((".smali")):
-			q="\w+\(.*\)"
-			p=re.compile(q)
+			regex="\w+\(.*\)"
+			pattern=re.compile(regex)
 			file_path=os.path.join(root, filename)
 			with open(file_path,"r") as file:
 				for line in file:
@@ -25,12 +25,12 @@ for root, dirs, files in os.walk(appfolder+"classes-out/"):
 
 						classname=classname.split('/')[-1]
 
-						m=p.search(function)
-						if m:
+						match=pattern.search(function)
+						if match:
 							function=function.split('(')[0]
 							api.append(classname+";->"+function+"()")
-							print api
-
+							
+print api
 
 
 

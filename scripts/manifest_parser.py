@@ -29,7 +29,4 @@ for title in titles:
         tagContent=tagContent.replace('=','')
         tagContent=tagContent.replace('"','')
         file.write(tagContent.split('.')[-1]+"\n")
-<<<<<<< HEAD
-=======
-    file.write(title.get('android:name').split('.')[-1] + "\n")
->>>>>>> ede086ce26e6802da78452d0d5cf8e67bbf71cc4
+

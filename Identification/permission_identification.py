@@ -33,7 +33,6 @@ for filename in glob.glob("/home/john/Trial/vectorization/permissions/*.txt"):
 		else:                                      # if permissions are absent in the testlist add to set extra
 			extra.add(x)
 	vector.append(listing)
-	additional.close()
 	file.close()
 
 for eachextra in extra:

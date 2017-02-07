@@ -6,10 +6,10 @@ logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
 
-path="/home/john/AMD/apk/"
-destinationPath="/home/john/AMD/restapk/"
-filenames=glob.glob(path+"*")
-scriptPath="/home/john/AMD/Android-Malware-Detector"
+path="/home/john/AMD/apk/"                     # Loaction of Input files (APKS allowed)      
+destinationPath="/home/john/AMD/restapk/"      # Location to extract to and creation of permissions list
+filenames=glob.glob(path+"*")       
+scriptPath="/home/john/AMD/Android-Malware-Detector"   #Location of script
 index = 0
 
 

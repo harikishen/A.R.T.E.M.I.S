@@ -1,11 +1,13 @@
 import glob
-import tensorflow as tf
+#import tensorflow as tf
 import os
 import glob
 import logging
 from extract import *
 from config import *
 from dexparse import *
+from parse import *
+from script import *
 
 file = open('WATCH_LIST')
 index = 0
@@ -36,7 +38,8 @@ for filename in filenames:
 	print("dir",dir)
 	permissions = extract(dir,index)
 	apicalls = dexparse(destinationPath+str(index))
-	print(apicalls,permissions)
+	status = dynamic_analysis(dir)
+	actions = jsonparse()
 	index = index + 1
 
 listing = []
@@ -64,7 +67,7 @@ for x in current_app_apicalls:
 vector_apicalls.append(listing)
 
 for x in range(0,len(vector),1):
-	vector[x] = vector[x]+vector_apicalls[x]
+	vector[x] = vector[x]+vector_apicalls[x]+actions
 
 print(vector[0])
 print("\n")  

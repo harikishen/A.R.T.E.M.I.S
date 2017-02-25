@@ -19,13 +19,13 @@ label = []
 
 filenames=glob.glob(path+"*")
 createVector(filenames,path)
-#filenames = glob.glob(malpath+"*")
-#createVector(filenames,malpath)
+filenames = glob.glob(malpath+"*")
+createVector(filenames,malpath)
 print(vector,label)
 if vector and label:
 	trX = np.array(vector,np.float32)
 	trY = np.array(label,np.float32)
-	RBM_hidden_sizes = [231, 150 ,50]
+	RBM_hidden_sizes = [233, 150 ,50]
 	inpX = trX
 	rbm_list = []
 	input_size = inpX.shape[1]

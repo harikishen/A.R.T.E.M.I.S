@@ -94,3 +94,5 @@ class NN(object):
 
                 print "Accuracy rating for epoch " + str(i) + ": " + str(np.mean(np.argmax(self._Y, axis=1) ==
                                                                                  sess.run(predict_op, feed_dict={_a[0]: self._X, y: self._Y})))
+            save_path = saver.save(sess, "/home/john/AMD/model.ckpt")
+            print("Model saved in file: %s" % save_path)

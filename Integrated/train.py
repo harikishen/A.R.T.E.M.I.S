@@ -2,6 +2,7 @@ from vector import *
 from nn import *
 from rbm import *
 import numpy as np 
+from config import *
 
 def createVector(filenames,location):
 	global folderindex,vector,label
@@ -17,11 +18,12 @@ folderindex = 0
 vector = []
 label = []
 
-filenames=glob.glob(path+"*")
+filenames=glob.glob(path+"*")    # for benign
 createVector(filenames,path)
-filenames = glob.glob(malpath+"*")
+filenames = glob.glob(malpath+"*") #for malware
 createVector(filenames,malpath)
-print(vector,label)
+#print(vector,label)   
+
 if vector and label:
 	trX = np.array(vector,np.float32)
 	trY = np.array(label,np.float32)
@@ -42,7 +44,7 @@ if vector and label:
 	nNet = NN(RBM_hidden_sizes, trX, trY)
 	nNet.load_from_rbms(RBM_hidden_sizes,rbm_list)
 	nNet.train()	
-	file  = open("/home/john/AMD/zdata.txt","a+")
+	file  = open(vectorstore,"a+")
 	for item in vector:
 		file.write("[")
 		for subitem in item:

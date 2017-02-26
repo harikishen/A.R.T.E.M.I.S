@@ -5,4 +5,5 @@ basePath="/home/john/AMD/Android-Malware-Detector"   #Location of scripts
 DEX2SMALI_PATH = '/home/john/AMD/Android-Malware-Detector/tools/'
 SCRIPT_PATH ='/home/john/AMD/Android-Malware-Detector/scripts'
 INTEGRATED_PATH = '/home/john/AMD/Android-Malware-Detector/Integrated'
+vectorstore = "/home/john/AMD/zdata.txt"  # data for training will be copied here...just in case...
 #APP_FOLDER="/home/john/AMD/apk/"

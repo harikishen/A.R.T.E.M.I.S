@@ -15,7 +15,7 @@ def jsonparse(location):
 		#print item+" 	"+str(len(data[item]))
 			perm.append(1 if len(data[item])>0 else 0)
 		perm.pop(1)
-		os.system("sudo rm -r %s"%(location+"/out"))
+		os.system("sudo rm -r %s"%(location+"out"))
 		return perm
 	else :
 		return False 

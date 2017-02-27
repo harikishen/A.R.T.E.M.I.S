@@ -11,7 +11,7 @@ def extract(dir,index,location):
 	os.chdir(SCRIPT_PATH)
 	filePath="%s%s"%(destinationPath,str(index))
 	print("filePath",filePath)
-	os.system(" java -jar /home/john/AMD/Android-Malware-Detector/tools/AXMLPrinter2.jar %s/AndroidManifest.xml >> %s/manifest.txt" %(filePath,filePath))
+	os.system(" java -jar %s/tools/AXMLPrinter2.jar %s/AndroidManifest.xml >> %s/manifest.txt" %(basePath,filePath,filePath))
 	permissions = manifest_parse(filePath)
 	return permissions
 

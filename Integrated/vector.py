@@ -10,7 +10,7 @@ from dexparse import *
 from parse import *
 from script import *
 
-def vectorize(filename,folderindex,location):
+def vectorize(filename,folderindex,location):            #folderindex just a formality..give 0 
 	os.chdir(INTEGRATED_PATH)
 	file = open('WATCH_LIST')    #file containing the watchlist
 	index = 0                     #iterator   
@@ -40,41 +40,59 @@ def vectorize(filename,folderindex,location):
 	vector_apicalls = []
 	dir=filename.split('/')[-1]
 	print("dir",dir)
-	permissions = extract(dir,folderindex,location)
-	apicalls = dexparse(destinationPath+str(folderindex))
-	os.system("sudo rm -r %s"%(destinationPath+str(folderindex)))
-	status = dynamic_analysis(dir,location)
-	actions = jsonparse(location)
-	listing = []
+	permissions = extract(dir,folderindex,location)       #static analysis
+	apicalls = dexparse(destinationPath+str(folderindex)) #static analysis 
+ 	os.system("sudo rm -r %s"%(destinationPath+str(folderindex)))  #removing extrafolders
+	status = dynamic_analysis(dir,location)  #dynamic analysis
+	actions = jsonparse(location)  # parsing results of dynamic analysis
+	listing = []                   #vectorizing permissions 
 	current_app = []
 	current_app_permission = permissions
 	for x in range(0,len(permission_list),1):
-		listing.append(0)
+		listing.append(0)         
 	for x in current_app_permission:
 		if x in permission_index.keys():
 			listing[permission_index[x]]=1
-	vector.append(listing)
-	listing = []
-	current_app_apicalls = apicalls
-	if current_app_apicalls:
+	vector.append(listing)       # end of permissions  
+	listing = []                      
+	current_app_apicalls = apicalls  #vectorizing apicalls
+	if current_app_apicalls:                 
 		current_app_apicalls.pop()
 	for x in range(0,len(apicalls_list),1):
 		listing.append(0)
 	for x in current_app_apicalls:
 		if x in apicalls_index.keys():
 			listing[apicalls_index[x]]=1
-	vector_apicalls.append(listing)
-	for x in range(0,len(vector),1):
-		if  actions and permissions and apicalls:
+	vector_apicalls.append(listing)       # end of apicalls  
+	for x in range(0,len(vector),1):      # adding actions to it
+		if  permissions and apicalls:   # checking if any of above processes failed
 			vector[x] = vector[x]+vector_apicalls[x]+actions
 			if all(feature == 0 for feature in vector[x]):
 				print("All Zeros")
 				return False,False
-			else:
-				if str(location).split('/')[-2] == 'Benign': 
-					label.append([0,1])
+			else:                                       # if all went well, final vector
+				if str(location).split('/')[-2] == 'Benign':   
+					label.append([0,1])     
 				else:
-					label.append([1,0])	
+					label.append([1,0])
+				file  = open(vectorstore,"a+")
+				for item in vector:
+					file.write("[")
+					for subitem in item:
+				  		file.write("%s," % subitem)
+					file.seek(-1, os.SEEK_END)
+					file.truncate()
+					file.write("]\n")
+				file.close()
+				file = open(labelstore,"a+")
+				for item in label:
+					file.write("[")
+					for subitem in item:
+				  		file.write("%s," % subitem)
+					file.seek(-1, os.SEEK_END)
+					file.truncate()
+					file.write("]\n")
+				file.close()	
 				return vector[0],label[0]
 		else:
 			return False,False

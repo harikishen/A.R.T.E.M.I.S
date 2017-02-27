@@ -3,12 +3,11 @@ from nn import *
 from rbm import *
 import numpy as np 
 from config import *
-
 def createVector(filenames,location):
 	global folderindex,vector,label
 	for filename in filenames:
 		print filename
-		temp_vector,temp_label = vectorize(filename,folderindex,location)
+		temp_vector,temp_label = vectorize(filename,folderindex,location)    #folderindex just a formality..give 0 
 		if temp_vector != False:
 			vector.append(temp_vector)
 			label.append(temp_label)
@@ -18,12 +17,11 @@ folderindex = 0
 vector = []
 label = []
 
-filenames=glob.glob(path+"*")    # for benign
+filenames=glob.glob(path+"*")
 createVector(filenames,path)
-filenames = glob.glob(malpath+"*") #for malware
+filenames = glob.glob(malpath+"*")
 createVector(filenames,malpath)
-#print(vector,label)   
-
+print(vector,label)
 if vector and label:
 	trX = np.array(vector,np.float32)
 	trY = np.array(label,np.float32)
@@ -44,16 +42,28 @@ if vector and label:
 	nNet = NN(RBM_hidden_sizes, trX, trY)
 	nNet.load_from_rbms(RBM_hidden_sizes,rbm_list)
 	nNet.train()	
-	file  = open(vectorstore,"a+")
-	for item in vector:
-		file.write("[")
-		for subitem in item:
-	  		file.write("%s," % subitem)
-		file.seek(-1, os.SEEK_END)
-		file.truncate()
-		file.write("],")
-	file.seek(-1, os.SEEK_END)
-	file.truncate()
-	file.close()
+	# file  = open(vectorstore,"a+")
+	# file = open(labelstore,"a+")
+	# for item in vector:
+	# 	file.write("[")
+	# 	for subitem in item:
+	#   		file.write("%s," % subitem)
+	# 	file.seek(-1, os.SEEK_END)
+	# 	file.truncate()
+	# 	file.write("],")
+	# file.seek(-1, os.SEEK_END)
+	# file.truncate()
+	# file.close()
+	# file = open(labelstore,"a+")
+	# for item in label:
+	# 	file.write("[")
+	# 	for subitem in item:
+	#   		file.write("%s," % subitem)
+	# 	file.seek(-1, os.SEEK_END)
+	# 	file.truncate()
+	# 	file.write("],")
+	# file.seek(-1, os.SEEK_END)
+	# file.truncate()
+	# file.close()
 else:
 	print("Vector Empty")

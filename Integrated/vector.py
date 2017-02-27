@@ -65,7 +65,7 @@ def vectorize(filename,folderindex,location):            #folderindex just a for
 			listing[apicalls_index[x]]=1
 	vector_apicalls.append(listing)       # end of apicalls  
 	for x in range(0,len(vector),1):      # adding actions to it
-		if  permissions and apicalls:   # checking if any of above processes failed
+		if  actions and permissions and apicalls:   # checking if any of above processes failed
 			vector[x] = vector[x]+vector_apicalls[x]+actions
 			if all(feature == 0 for feature in vector[x]):
 				print("All Zeros")

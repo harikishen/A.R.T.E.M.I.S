@@ -2,8 +2,11 @@
 import math
 import tensorflow as tf
 import numpy as np
-
+import logging
 # Class that defines the behavior of the RBM
+
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
 
 
 class RBM(object):
@@ -14,7 +17,8 @@ class RBM(object):
         self._output_size = output_size  # Size of output
         self.epochs = 5  # Amount of training iterations
         self.learning_rate = 1.0  # The step used in gradient descent
-        self.batchsize = 100  # The size of how much data will be used for training per sub iteration
+        # The size of how much data will be used for training per sub iteration
+        self.batchsize = 100
 
         # Initializing weights and biases as matrices full of zeroes
         # Creates and initializes the weights with 0
@@ -24,12 +28,14 @@ class RBM(object):
         # Creates and initializes the visible biases with 0
         self.vb = np.zeros([input_size], np.float32)
 
-    # Fits the result from the weighted visible layer plus the bias into a sigmoid curve
+    # Fits the result from the weighted visible layer plus the bias into a
+    # sigmoid curve
     def prob_h_given_v(self, visible, w, hb):
         # Sigmoid
         return tf.nn.sigmoid(tf.matmul(visible, w) + hb)
 
-    # Fits the result from the weighted hidden layer plus the bias into a sigmoid curve
+    # Fits the result from the weighted hidden layer plus the bias into a
+    # sigmoid curve
     def prob_v_given_h(self, hidden, w, vb):
         return tf.nn.sigmoid(tf.matmul(hidden, tf.transpose(w)) + vb)
 
@@ -80,20 +86,48 @@ class RBM(object):
             # For each epoch
             for epoch in range(self.epochs):
                 # For each step/batch
-                for start, end in zip(range(0, len(X), self.batchsize), range(self.batchsize, len(X), self.batchsize)):
+                for start, end in zip(
+                    range(
+                        0, len(X), self.batchsize), range(
+                        self.batchsize, len(X), self.batchsize)):
                     batch = X[start:end]
                     # Update the rates
-                    cur_w = sess.run(update_w, feed_dict={
-                                     v0: batch, _w: prv_w, _hb: prv_hb, _vb: prv_vb})
-                    cur_hb = sess.run(update_hb, feed_dict={
-                                      v0: batch, _w: prv_w, _hb: prv_hb, _vb: prv_vb})
-                    cur_vb = sess.run(update_vb, feed_dict={
-                                      v0: batch, _w: prv_w, _hb: prv_hb, _vb: prv_vb})
+                    cur_w = sess.run(
+                        update_w,
+                        feed_dict={
+                            v0: batch,
+                            _w: prv_w,
+                            _hb: prv_hb,
+                            _vb: prv_vb})
+                    cur_hb = sess.run(
+                        update_hb,
+                        feed_dict={
+                            v0: batch,
+                            _w: prv_w,
+                            _hb: prv_hb,
+                            _vb: prv_vb})
+                    cur_vb = sess.run(
+                        update_vb,
+                        feed_dict={
+                            v0: batch,
+                            _w: prv_w,
+                            _hb: prv_hb,
+                            _vb: prv_vb})
                     prv_w = cur_w
                     prv_hb = cur_hb
                     prv_vb = cur_vb
-                error = sess.run(err, feed_dict={v0: X, _w: cur_w, _vb: cur_vb, _hb: cur_hb})
-                print 'Epoch: %d' % epoch, 'reconstruction error: %f' % error
+                error = sess.run(
+                    err,
+                    feed_dict={
+                        v0: X,
+                        _w: cur_w,
+                        _vb: cur_vb,
+                        _hb: cur_hb})
+                logger.info(
+                    'Epoch: ' +
+                    str(epoch) +
+                    ' reconstruction error: ' +
+                    str(error))
             self.w = prv_w
             self.hb = prv_hb
             self.vb = prv_vb

@@ -38,7 +38,7 @@ def get_app_details(api, categories, subcategory, number):
     logger.info('Getting apps\' details for each category')
     apps_list = []
     for category in categories:
-        print(category)
+        logger.info(category)
         data = api.list(category, subcategory, number)
         for app in data.doc[0].child:
             apps_list.append(app)
@@ -64,7 +64,7 @@ def download_apps(api):
         package_name = download_queue.get()
         m = api.details(package_name)
         doc = m.docV2
-        app_name = "".join(doc.title.split(" ")) 
+        app_name = "".join(doc.title.split(" "))
         vc = doc.details.appDetails.versionCode
         ot = doc.offer[0].offerType
         file_name = DOWNLOAD_PATH + app_name + '.apk'

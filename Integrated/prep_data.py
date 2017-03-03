@@ -28,8 +28,6 @@ filenames = glob.glob(BENIGN_PATH + "*")
 createVector(filenames, BENIGN_PATH)
 filenames = glob.glob(MALWARE_PATH + "*")
 createVector(filenames, MALWARE_PATH)
-logger.info('Vector: ' + vector)
-logger.info('Labels: ' + label)
 
 if vector and label:
     trX1 = np.array(vector, np.float32)

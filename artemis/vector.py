@@ -41,7 +41,7 @@ def vectorize(filename, folderindex, location):
     permissions = extract(dir, folderindex, location)
     apicalls = dexparse(DEST_PATH + str(folderindex))
     # removing extrafolders
-    os.system("sudo rm -r %s" % (DEST_PATH + str(folderindex)))
+    os.system("rm -r %s" % (DEST_PATH + str(folderindex)))
     status = dynamic_analysis(dir, location)
     actions = jsonparse(location)
     listing = []

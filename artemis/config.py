@@ -8,7 +8,7 @@ DEST_PATH = APPS_BASE_PATH + "restapk/"
 BASE_PATH = APPS_BASE_PATH + "Android-Malware-Detector"  # Location of scripts
 DEX2SMALI_PATH = BASE_PATH + '/tools/'
 SCRIPT_PATH = BASE_PATH + '/scripts'
-INTEGRATED_PATH = BASE_PATH + '/Integrated'
+INTEGRATED_PATH = BASE_PATH + '/artemis'
 # data for training will be copied here...just in case...
 VECTOR_STORE = APPS_BASE_PATH + "xdata.txt"
 # data for training will be copied here...just in case...

@@ -6,7 +6,7 @@ file = open('testlist.txt')
 index = 0
 permission_index= {}          # permissions and indices of permissions 
 permission_list = file.read().split('\n')   # List of all permissions monitored
-
+extrafile = open("extrafile.txt","a+")
 
 for x in permission_list:
 	permission_index[x]=index
@@ -17,7 +17,7 @@ listing = []
 current_app = []
 vector =[]
 permission_count = {}   
-
+extra = set()
 # vector creation for permissions
 
 for filename in glob.glob("/home/john/Trial/vectorization/permissions/*.txt"):
@@ -28,10 +28,16 @@ for filename in glob.glob("/home/john/Trial/vectorization/permissions/*.txt"):
 	for x in range(0,len(permission_list),1):
 		listing.append(0)
 	for x in current_app_permission:
-		if x in permission_index.keys():
-			listing[permission_index[x]]=1	
+		if x in permission_index.keys():        #if permissions are present in the testlist of permissions set 1
+			listing[permission_index[x]]=1
+		else:                                      # if permissions are absent in the testlist add to set extra
+			extra.add(x)
 	vector.append(listing)
 	file.close()
+
+for eachextra in extra:
+	extrafile.write(str(eachextra)+"\n")   #writing the set of extra permissions to file extrafile.
+    
 
 # tensorflow defintions
 

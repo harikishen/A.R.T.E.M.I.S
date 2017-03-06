@@ -1,3 +1,4 @@
+import json
 import glob
 import tensorflow as tf
 import os
@@ -7,8 +8,7 @@ from config import *
 from extract import *
 from config import *
 from dexparse import *
-from parse import *
-from script import *
+from sandbox import *
 
 
 def vectorize(filename, folderindex, location):

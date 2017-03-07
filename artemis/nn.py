@@ -89,7 +89,6 @@ class NN(object):
 
         # Prediction operation
         predict_op = tf.argmax(_a[-1], 1)
-        saver = tf.train.Saver()
 
         # Training Loop
         with tf.Session() as sess:
@@ -134,8 +133,28 @@ class NN(object):
                                 feed_dict={
                                     _a[0]: self._X,
                                     y: self._Y}))))
-            save_path = saver.save(
-                sess, MODEL_STORE + "model.ckpt")
-            logger.info(
-                "Model saved in file: %s" %
-                save_path)
+                np.save(MODEL_STORE + 'weights', self.w_list)
+                np.save(MODEL_STORE + 'bias', self.b_list)
+                np.save(MODEL_STORE + 'size', self._sizes)
+
+    def predict(self, X):
+        """TODO: Docstring for predict.
+        :X: TODO
+        :returns: TODO
+        """
+        _a = [None] * (len(self._sizes) + 2)
+        _w = [None] * len(self.w_list)
+        _b = [None] * len(self.b_list)
+        _a[0] = tf.placeholder("float", [None, self._X.shape[1]])
+        wlist = np.load(MODEL_STORE + 'weights.npy')
+        blist = np.load(MODEL_STORE + 'bias.npy')
+        sizes = np.load(MODEL_STORE + 'size.npy')
+        for i in range(len(wlist)):
+            _w[i] = tf.constant(np.array(wlist[i], np.float32))
+            _b[i] = tf.constant(np.array(blist[i], np.float32))
+        for i in range(1, len(sizes) + 2):
+            _a[i] = tf.nn.sigmoid(tf.matmul(_a[i - 1], _w[i - 1]) + _b[i - 1])
+        predict_op = tf.argmax(_a[-1], 1)
+        with tf.Session() as sess:
+            sess.run(tf.initialize_all_variables())
+            return sess.run(predict_op, feed_dict={_a[0]: X})

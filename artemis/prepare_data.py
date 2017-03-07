@@ -36,7 +36,7 @@ if vector and label:
     trY2 = np.loadtxt(LABEL_STORE, np.float32)
     trX2 = np.concatenate((trX2, trX1), axis=0)
     trY2 = np.concatenate((trY2, trY1), axis=0)
-    np.savetxt(VECTOR_STORE, trX2, fmt='%d')
-    np.savetxt(LABEL_STORE, trY2, fmt='%d')
+    np.savetxt(VECTOR_STORE, trX2, fmt='%f')
+    np.savetxt(LABEL_STORE, trY2, fmt='%f')
 else:
     logger.warning('Empty Vector')

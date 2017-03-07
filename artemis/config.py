@@ -15,3 +15,4 @@ VECTOR_STORE = APPS_BASE_PATH + "xdata.txt"
 LABEL_STORE = APPS_BASE_PATH + "ydata.txt"
 # data for training will be copied here...just in case...
 MODEL_STORE = APPS_BASE_PATH
+TEST_DATA_LOCATION = APPS_BASE_PATH + "Test/"

@@ -1,7 +1,7 @@
 APPS_BASE_PATH = "/Users/harikishenh/Dev/Main_Project/"
 BENIGN_PATH = APPS_BASE_PATH + "Benign/"
 MALWARE_PATH = APPS_BASE_PATH + "Malware/"
-DEST_PATH = APPS_BASE_PATH + "restapk/"
+DEST_PATH = APPS_BASE_PATH + "Temp/"
 BASE_PATH = APPS_BASE_PATH + "Android-Malware-Detector"  # Location of scripts
 DEX2SMALI_PATH = BASE_PATH + '/tools/'
 SCRIPT_PATH = BASE_PATH + '/scripts/'

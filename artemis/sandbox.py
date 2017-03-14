@@ -48,5 +48,6 @@ def dynamic_analysis(filename, location):
     s = EasyProcess(
         "docker run -it --rm -v %s:/samples/:ro -v %s/out:/samples/out honeynet/droidbox /samples/%s 100" %
         (location, location, filename)).call(
-        timeout=150).stdout
+        timeout=300).stdout
+    print s
     return True

@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>ARTEMIS</title>
+
+    <link rel="stylesheet" href="app/css/bootstrap.css">
+
+    <link rel="stylesheet" href="app/css/select2/select2.css">
+    <link rel="stylesheet" href="app/css/uniformjs/css/uniform.default.css">
+
+    <link rel="stylesheet" href="app/css/proton.css">
+    <link rel="stylesheet" href="app/css/animate.css">
+    <link rel="stylesheet" href="app/css/font-awesome.css" type="text/css"/>
+    <link rel="stylesheet" href="app/css/font-titillium.css" type="text/css"/>
+    <link rel="stylesheet" href="app/css/progress.css">
+
+</head>
+
+<body>
+<br><br>
+<div class="container">
+    <br><br>
+    <div class="panel panel-default panel-block">
+        <div class="list-group">
+            <div class="list-group-item">
+              <form id = "uploadform" enctype="multipart/form-data">
+                <h4 class="section-title">APK Input</h4>
+                    <div class="form-group">
+                        <label>Select APK file to analyze</label>
+                            <div>
+                                <div class="fileinput fileinput-new" data-provides="fileinput">
+                                    <div class="input-group">
+                                    <div class="form-control uneditable-input span3" data-trigger="fileinput"><i class="icon-file fileinput-exists"></i> <span class="fileinput-filename"></span></div>
+                                    <span class="input-group-addon btn btn-primary btn-file"><span class="fileinput-new">Select file</span><span class="fileinput-exists">Change</span><input id="file_to_upload" type="file"  name="..."></span>
+                                    <a href="#" class="input-group-addon btn btn-primary fileinput-exists" data-dismiss="fileinput">Remove</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-xs-2 col-xs-offset-5">
+                                    <button type="button" class="btn btn-primary" id="submit" name="submit">Submit</button>
+                                </div>
+                            </div>
+
+
+
+                    </div>
+                  </form>
+            </div>
+        </div>
+    </div>
+    <form id="msform">
+    <ul id="progressbar">
+        <li id="upload">Uploading file</li>
+        <li id="extract">Extracting contents</li>
+        <li id="static">Static analysis</li>
+        <li id="sand">Sandboxing</li>
+        <li id="predict">Prediction</li>
+
+    </ul>
+
+    </form>
+
+    <div class="panel panel-default panel-block">
+        <div class="list-group">
+            <div class="list-group-item">
+                <h4 class="section-title">Result</h4>
+                <br><br>
+                <p id="result"> </p>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+
+
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+
+    <script src="app/js/progress.js" charset="utf-8"></script>
+     <script src="app/js/bootstrap.min.js"></script>
+    <script src="app/js/forms.js"></script>
+    <script src="app/js/fileinput.js"></script>
+
+
+</body>
+
+
+
+</html>

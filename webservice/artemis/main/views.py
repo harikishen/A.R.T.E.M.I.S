@@ -7,6 +7,7 @@ from utils.vector import *
 from utils.config import *
 import numpy as np
 import uuid
+import os
 
 def handle_uploaded_file(f):
     filename = MEDIA_ROOT + '/' + str(uuid.uuid4())
@@ -17,11 +18,13 @@ def handle_uploaded_file(f):
 
 def analyze(filename):
     _vector = []
-    logger.info(filename)
-    temp_vector, temp_label = vectorize(filename, 0, MEDIA_ROOT)
+    folderindex = filename.split('/')[-1]
+    logger.info(folderindex)
+    temp_vector, temp_label = vectorize(filename, folderindex, MEDIA_ROOT)
     if temp_vector:
         _vector.append(temp_vector)
     logger.info(_vector)
+    os.system('rm ' + filename)
     if _vector:
         logger.info(np.array(_vector, np.float32))
         result = predict(np.array(_vector, np.float32))
@@ -31,8 +34,8 @@ def analyze(filename):
             return('benign')
     else:
         logger.info("Empty Vector")
-        return('failed')
-    return failed
+        return('extractionfailed')
+    return 'failed'
 
 def index(request):
     return render_to_response('main/index.html')
@@ -41,6 +44,13 @@ def index(request):
 def upload(request):
     if request.method == 'POST':
         filename = handle_uploaded_file(request.FILES['file'])
-        result = analyze(filename)
+        request.session['filename'] = filename
+        return HttpResponse(filename)
+    return HttpResponse('usepost')
+
+@csrf_exempt
+def analyze_file(request):
+    if request.method == 'POST':
+        result = analyze(request.session.get('filename',''))
         return HttpResponse(result)
-    return HttpResponse('use post')
+    return HttpResponse('usepost')

@@ -12,8 +12,8 @@ $(document).ready(function(){
       for(i = 0; i < 5; i++)
         $("#progressbar li").eq(i).removeClass("active");
 
-        var p = document.getElementById('result');
-        p.innerHTML = "";
+        // var p = document.getElementById('result');
+        // p.innerHTML = "";
 
       if($("#file_to_upload").val() != "")
       {
@@ -30,6 +30,7 @@ $(document).ready(function(){
           type: 'post',
           success: function(data){
             loop(3);
+            $(".load").show();
             $.ajax({
               url: 'http://localhost:8000/analyze',
               dataType: 'text',
@@ -42,8 +43,9 @@ $(document).ready(function(){
 
                 }
                 $("#progressbar li").eq(4).addClass("active");
-                var p = document.getElementById('result');
-                p.innerHTML = data;
+                $(".load").hide();
+                // var p = document.getElementById('result');
+                // p.innerHTML = data;
               }
             });
           }

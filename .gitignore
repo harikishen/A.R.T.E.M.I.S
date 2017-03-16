@@ -2,4 +2,5 @@
 .idea/
 env/
 electron/node_modules/
+webservice/artemis/db.sqlite3
 *.pyc

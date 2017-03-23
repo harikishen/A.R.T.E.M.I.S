@@ -16,4 +16,6 @@ def extract(dir, index, location):
         " java -jar %s/tools/AXMLPrinter2.jar %s/AndroidManifest.xml >> %s/manifest.txt" %
         (BASE_PATH, filePath, filePath))
     permissions = manifest_parse(filePath)
+    if len(permissions) == 0:
+        permissions = False
     return permissions

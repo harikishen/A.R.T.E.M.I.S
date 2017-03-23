@@ -43,8 +43,11 @@ def vectorize(filename, folderindex, location):
     apicalls = dexparse(DEST_PATH + str(folderindex))
     # removing extrafolders
     os.system("rm -r %s" % (DEST_PATH + str(folderindex)))
-    status = dynamic_analysis(dir, location)
-    actions = jsonparse(location)
+    if permissions:
+        status = dynamic_analysis(dir, location)
+        actions = jsonparse(location)
+    else:
+        return False,False
     listing = []
     current_app = []
     current_app_permission = permissions

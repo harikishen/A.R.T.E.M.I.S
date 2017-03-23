@@ -1,6 +1,8 @@
 BeautifulSoup==3.2.1
 beautifulsoup4==4.5.1
 Django==1.10.6
+django-cors-headers==2.0.2
+EasyProcess==0.2.3
 funcsigs==1.0.2
 google==1.9.3
 lxml==3.7.1

@@ -38,9 +38,9 @@ def jsonparse(location):
             perm.append(1 if len(data[item]) > 0 else 0)
         perm.pop(1)
         os.system("rm -r %s" % (location + "out"))
-        return perm
+        return perm, data
     else:
-        return def_actions
+        return def_actions, False
 
 
 def dynamic_analysis(filename, location):

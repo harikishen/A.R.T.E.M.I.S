@@ -45,9 +45,9 @@ def vectorize(filename, folderindex, location):
     os.system("rm -r %s" % (DEST_PATH + str(folderindex)))
     if permissions:
         status = dynamic_analysis(dir, location)
-        actions = jsonparse(location)
+        actions, json_data = jsonparse(location)
     else:
-        return False,False
+        return False,False, False, False, False
     listing = []
     current_app = []
     current_app_permission = permissions
@@ -71,12 +71,12 @@ def vectorize(filename, folderindex, location):
         if actions and permissions and apicalls:
             vector[x] = vector[x] + vector_apicalls[x] + actions
             if all(feature == 0 for feature in vector[x]):
-                return False, False
+                return False, False, False, False, False
             else:
                 if str(location).split('/')[-2] == 'Benign':
                     label.append([0, 1])
                 else:
                     label.append([1, 0])
-                return vector[0], label[0]
+                return vector[0], label[0], permission_list, apicalls, json_data
         else:
-            return False, False
+            return False, False, False, False, False

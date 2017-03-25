@@ -41,7 +41,7 @@ $(document).ready(function () {
             form_data.append("file", file_data);
             $("#progressbar li").eq(0).addClass("active");
             $.ajax({
-                url: "http://localhost:8000/upload",
+                url: "http://52.42.4.156:8000/upload",
                 dataType: "text",
                 cache: false,
                 contentType: false,
@@ -52,7 +52,7 @@ $(document).ready(function () {
                     fillProgress(3);
                     $(".load").show();
                     $.ajax({
-                        url: "http://localhost:8000/analyze",
+                        url: "http://52.42.4.156:8000/analyze",
                         dataType: "text",
                         cache: false,
                         contentType: false,

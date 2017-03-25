@@ -25,7 +25,7 @@ SECRET_KEY = 'n-(b^4m&cefb5kua_r(2^s_o%_yz+*x8di-ld0u60q!1l2wera'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["34.208.29.74"]
+ALLOWED_HOSTS = ["52.42.4.156"]
 
 
 # Application definition
@@ -122,4 +122,4 @@ CORS_ORIGIN_ALLOW_ALL = True
 # https://docs.djangoproject.com/en/1.10/howto/static-files/
 
 STATIC_URL = '/static/'
-MEDIA_ROOT = '/Users/harikishenh/Dev/Main_Project/APKs'
+MEDIA_ROOT = '/home/ubuntu/utils'

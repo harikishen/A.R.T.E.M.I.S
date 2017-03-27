@@ -103,20 +103,46 @@
                 <p class="text" id="result_text"></p>
             </div>
         </div>
+        <div class="col-xs-2 col-xs-offset-5">
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal" name="view_details" id="view_details">View Details</button>
+        </div>
 
     </div>
+    <div class="modal fade" id="myModal" role="dialog">
+      <div class="modal-dialog">
 
+        <!-- Modal content-->
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title">Analysis details</h4>
+          </div>
+          <div class="modal-body" id="mdl_body">
+</div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+
+
+
+
+</div>
 </div>
 
 
 
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script src="app/js/progress.js" charset="utf-8"></script>
+<script src="app/js/loading.js" charset="utf-8"></script>
 
-    <script src="app/js/progress.js" charset="utf-8"></script>
-    <script src="app/js/loading.js" charset="utf-8"></script>
-    <script src="app/js/bootstrap.min.js"></script>
-    <script src="app/js/fileinput.js"></script>
+ <script src="app/js/bootstrap.min.js"></script>
+<script src="app/js/fileinput.js"></script>
 
 
 </body>

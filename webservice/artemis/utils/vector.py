@@ -41,11 +41,13 @@ def vectorize(filename, folderindex, location):
     dir = filename.split('/')[-1]
     permissions = extract(dir, folderindex, location)
     apicalls = dexparse(DEST_PATH + str(folderindex))
+    sensitive_permissions = []
+    sensitive_apis = []
     # removing extrafolders
     os.system("rm -r %s" % (DEST_PATH + str(folderindex)))
     if permissions:
         status = dynamic_analysis(dir, location)
-        actions, json_data = jsonparse(location)
+        actions, json_data = jsonparse(location + "/")
     else:
         return False,False, False, False, False
     listing = []
@@ -56,6 +58,7 @@ def vectorize(filename, folderindex, location):
     for x in current_app_permission:
         if x in permission_index.keys():
             listing[permission_index[x]] = 1
+            sensitive_permissions.append(x)
     vector.append(listing)
     listing = []
     current_app_apicalls = apicalls
@@ -66,6 +69,7 @@ def vectorize(filename, folderindex, location):
     for x in current_app_apicalls:
         if x in apicalls_index.keys():
             listing[apicalls_index[x]] = 1
+            sensitive_apis.append(x)
     vector_apicalls.append(listing)
     for x in range(0, len(vector), 1):
         if actions and permissions and apicalls:
@@ -77,6 +81,6 @@ def vectorize(filename, folderindex, location):
                     label.append([0, 1])
                 else:
                     label.append([1, 0])
-                return vector[0], label[0], permission_list, apicalls, json_data
+                return vector[0], label[0], sensitive_permissions, sensitive_apis, json_data
         else:
             return False, False, False, False, False

@@ -1,5 +1,28 @@
 /*jslint browser: true*/
 /*global $, jQuery, alert*/
+var path = require('path');
+
+var malware_options =
+        {
+            title: "A.R.T.E.M.I.S",
+            body: "App is MALICIOUS",
+            icon: path.join(__dirname, 'app/icons/malware.png')
+        };
+
+var benign_options =
+        {
+            title: "A.R.T.E.M.I.S",
+            body: "App is BENIGN",
+            icon: path.join(__dirname, 'app/icons/benign.png')
+        };
+
+var error_options =
+        {
+            title: "A.R.T.E.M.I.S",
+            body: "Analysis Failed. Please check the file you uploaded",
+            icon: path.join(__dirname, 'app/icons/error.png')
+        };
+
 var FLAG = 0;
 $(document).ready(function () {
     "use strict";
@@ -46,7 +69,7 @@ $(document).ready(function () {
             form_data.append("file", file_data);
             $("#progressbar li").eq(0).addClass("active");
             $.ajax({
-                url: "http://localhost:8000/upload",
+                url: "http://ec2-52-88-228-162.us-west-2.compute.amazonaws.com:8000/upload",
                 dataType: "text",
                 cache: false,
                 contentType: false,
@@ -57,7 +80,7 @@ $(document).ready(function () {
                     fillProgress(3);
                     $(".load").show();
                     $.ajax({
-                        url: "http://localhost:8000/analyze",
+                        url: "http://ec2-52-88-228-162.us-west-2.compute.amazonaws.com:8000/analyze",
                         dataType: "text",
                         cache: false,
                         contentType: false,
@@ -70,6 +93,7 @@ $(document).ready(function () {
                                 $("#main_group").attr("fill", "lightgrey");
                                 $("#result_text").text("Error! Please try again.");
                                 $("#android_bot").show();
+                                new Notification(error_options.title, error_options);
                                 FLAG = 1;
                                 clearProgress();
                                 $("#progressbar li").eq(0).addClass("active");
@@ -79,12 +103,14 @@ $(document).ready(function () {
                                 $("#main_group").attr("fill", "#a4c639");
                                 $("#result_text").text("App is BENIGN");
                                 $("#android_bot").show();
+                                new Notification(benign_options.title, benign_options);
                                 completeProgress();
                             }
                             if (data.result === "malware") {
                                 $("#main_group").attr("fill", "#d91e18");
                                 $("#result_text").text("App is MALICIOUS");
                                 $("#android_bot").show();
+                                new Notification(malware_options.title, malware_options);
                                 completeProgress();
                             }
                             actions_string = "<p>Actions</p><pre><code>";
@@ -98,10 +124,17 @@ $(document).ready(function () {
                                 api_string += "<br>" + data.api[i];
                             }
                             api_string += "<br></code></pre>";
-                            $("#mdl_body").append(permission_string);
-                            $("#mdl_body").append(api_string);
+                            if (data.permissions) {
+                                $("#mdl_body").append(permission_string);
+                            }
+                            if (data.api) {
+                                $("#mdl_body").append(api_string);
+                            }
                             if (data.actions) {
                                 $("#mdl_body").append(actions_string + JSON.stringify(data.actions, null, 2) + "</code></pre>");
+                            }
+                            if (!data.permissions && !data.api) {
+                                $("#mdl_body").append("<center><p>Error !!!</p></center>");
                             }
                         }
                     });

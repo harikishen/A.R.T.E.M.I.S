@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>ARTEMIS</title>
+
+    <link rel="stylesheet" href="app/css/bootstrap.css">
+
+    <link rel="stylesheet" href="app/css/select2/select2.css">
+    <link rel="stylesheet" href="app/css/uniformjs/css/uniform.default.css">
+
+    <link rel="stylesheet" href="app/css/proton.css">
+    <link rel="stylesheet" href="app/css/animate.css">
+    <link rel="stylesheet" href="app/css/font-awesome.css" type="text/css"/>
+    <link rel="stylesheet" href="app/css/font-titillium.css" type="text/css"/>
+    <link rel="stylesheet" href="app/css/progress.css">
+    <link rel="stylesheet" href="app/css/loading.css">
+
+</head>
+
+<body>
+<br><br>
+<div class="container">
+    <br><br>
+    <div class="panel panel-default panel-block">
+        <div class="list-group">
+            <div class="list-group-item">
+              <form id = "uploadform" enctype="multipart/form-data">
+                <h4 class="section-title">APK Input</h4>
+                    <div class="form-group">
+                        <label>Select APK file to analyze</label>
+                            <div>
+                                <div class="fileinput fileinput-new" data-provides="fileinput">
+                                    <div class="input-group">
+                                    <div class="form-control uneditable-input span3" data-trigger="fileinput"><i class="icon-file fileinput-exists"></i> <span class="fileinput-filename"></span></div>
+                                    <span class="input-group-addon btn btn-primary btn-file"><span class="fileinput-new">Select file</span><span class="fileinput-exists">Change</span><input id="file_to_upload" type="file"  name="..."></span>
+                                    <a href="#" class="input-group-addon btn btn-primary fileinput-exists" data-dismiss="fileinput">Remove</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-xs-2 col-xs-offset-5">
+                                    <button type="button" class="btn btn-primary" id="submit" name="submit">Submit</button>
+                                </div>
+                            </div>
+
+
+
+                    </div>
+                  </form>
+            </div>
+        </div>
+    </div>
+    <form id="msform">
+    <ul id="progressbar">
+        <li id="upload">Uploading file</li>
+        <li id="extract">Extracting contents</li>
+        <li id="static">Static analysis</li>
+        <li id="sand">Sandboxing</li>
+        <li id="predict">Prediction</li>
+
+    </ul>
+
+    </form>
+
+    <div>
+        <div class="load">
+          <div class="gear one" id="blue_gear">
+
+          </div>
+          <div class="gear two" id="pink_gear">
+
+          </div>
+          <div class="gear three" id="yellow_gear">
+
+          </div>
+          <div class="lil-circle"></div>
+
+        </div>
+        <div class="text load" id="text"></div>
+
+    </div>
+    <div id="android_bot">
+        <div class="row">
+            <div class="col-xs-2 col-xs-offset-5">
+               <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="-140 -70 294 345">
+                    <g id = "main_group">
+                        <use stroke-width="14.4" xlink:href="#b" stroke="#FFF"/>
+                        <use xlink:href="#a" transform="scale(-1,1)"/>
+                            <g id="a" stroke="#FFF" stroke-width="7.2">
+                                <rect rx="6.5" transform="rotate(29)" height="86" width="13" y="-86" x="14"/>
+                                <rect id="c" rx="24" height="133" width="48" y="41" x="-143"/>
+                                <use y="97" x="85" xlink:href="#c"/>
+                            </g>
+                        <g id="b">
+                            <ellipse cy="41" rx="91" ry="84"/>
+                            <rect rx="22" height="182" width="182" y="20" x="-91"/>
+                        </g>
+                    </g>
+                    <g stroke="#FFF" stroke-width="7.2" fill="#FFF">
+                        <path d="m-95 44.5h190"/><circle cx="-42" r="4"/><circle cx="42" r="4"/>
+                    </g>
+                </svg>
+                <p class="text" id="result_text"></p>
+            </div>
+        </div>
+        <div class="col-xs-2 col-xs-offset-5">
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal" name="view_details" id="view_details">View Details</button>
+        </div>
+
+    </div>
+    <div class="modal fade" id="myModal" role="dialog">
+      <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title">Analysis details</h4>
+          </div>
+          <div class="modal-body" id="mdl_body">
+</div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+
+
+
+
+</div>
+</div>
+
+
+
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+
+<script src="app/js/progress.js" charset="utf-8"></script>
+<script src="app/js/loading.js" charset="utf-8"></script>
+
+ <script src="app/js/bootstrap.min.js"></script>
+<script src="app/js/fileinput.js"></script>
+
+
+</body>
+
+
+
+</html>
